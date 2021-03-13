@@ -6,22 +6,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "users")
+@Table(name = "films")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column
-    private String username;
+    private String name;
     @Column
-    private String email;
+    private LocalDate date;
     @Column
-    private String password;
-
+    private Integer type;
+    @Column
+    private Integer genre;
+    @Column
+    private Integer country;
+    @Column
+    private Double rating;
 }
