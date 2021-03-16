@@ -1,6 +1,6 @@
 package com.vsu.Services;
 
-import com.vsu.Models.DTO.UserDTO;
+import com.vsu.dto.UserDTO;
 import com.vsu.Models.Exceptions.ValidationException;
 
 import java.util.List;

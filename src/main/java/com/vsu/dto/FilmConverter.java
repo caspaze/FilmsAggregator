@@ -1,7 +1,9 @@
-package com.vsu.Models.DTO;
+package com.vsu.dto;
 
 import com.vsu.Models.Film;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FilmConverter {
     public Film filmDtoToFilm(FilmDTO filmDTO){
         return Film.builder()
@@ -9,11 +11,12 @@ public class FilmConverter {
                 .name(filmDTO.getName())
                 .date(filmDTO.getDate())
                 .type(filmDTO.getType())
-                .genre(filmDTO.getGenre())
                 .country(filmDTO.getCountry())
                 .rating(filmDTO.getRating())
+                .budget(filmDTO.getBudget())
+                .duration(filmDTO.getDuration())
+                .genres(filmDTO.getGenres())
                 .build();
-
     }
     public FilmDTO filmToFilmDto(Film film){
         return FilmDTO.builder()
@@ -21,9 +24,11 @@ public class FilmConverter {
                 .name(film.getName())
                 .date(film.getDate())
                 .type(film.getType())
-                .genre(film.getGenre())
                 .country(film.getCountry())
                 .rating(film.getRating())
+                .budget(film.getBudget())
+                .duration(film.getDuration())
+                .genres(film.getGenres())
                 .build();
     }
 }

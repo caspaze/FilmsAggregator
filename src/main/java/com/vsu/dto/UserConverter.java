@@ -1,4 +1,4 @@
-package com.vsu.Models.DTO;
+package com.vsu.dto;
 
 import com.vsu.Models.User;
 import org.springframework.stereotype.Component;
@@ -11,6 +11,7 @@ public class UserConverter {
                 .email(userDTO.getEmail())
                 .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
+                .role(userDTO.getRole())
                 .build();
 
     }
@@ -20,6 +21,7 @@ public class UserConverter {
                 .email(user.getEmail())
                 .username(user.getUsername())
                 .password(user.getPassword())
+                .role(user.getRole())
                 .build();
     }
 }

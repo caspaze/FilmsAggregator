@@ -23,5 +23,8 @@ public class User {
     private String email;
     @Column
     private String password;
+    @ManyToOne(targetEntity = Role.class)
+    @JoinColumn(name="role",referencedColumnName = "id")
+    private Role role;
 
 }

@@ -1,7 +1,7 @@
 package com.vsu.Services;
 
-import com.vsu.Models.DTO.UserConverter;
-import com.vsu.Models.DTO.UserDTO;
+import com.vsu.dto.UserConverter;
+import com.vsu.dto.UserDTO;
 import com.vsu.Models.Exceptions.ValidationException;
 import com.vsu.Models.User;
 import com.vsu.Repository.UserRepository;

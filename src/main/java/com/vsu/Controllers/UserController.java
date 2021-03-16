@@ -1,6 +1,6 @@
 package com.vsu.Controllers;
 
-import com.vsu.Models.DTO.UserDTO;
+import com.vsu.dto.UserDTO;
 import com.vsu.Models.Exceptions.ValidationException;
 import com.vsu.Services.RepositoryUserService;
 import lombok.AllArgsConstructor;
@@ -26,6 +26,9 @@ public class UserController {
         log.info("Handling find all users request");
         UserDTO userDTO = userService.findById(id);
         model.addAttribute("id", userDTO.getId());
+        model.addAttribute("username",userDTO.getUsername());
+        model.addAttribute("email",userDTO.getEmail());
+        model.addAttribute("role",userDTO.getRole());
         return "user";
     }
     @GetMapping("/findByEmail")

@@ -1,20 +1,21 @@
 package com.vsu.Models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "films")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Film {
+public class Film implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,12 +23,39 @@ public class Film {
     private String name;
     @Column
     private LocalDate date;
-    @Column
-    private Integer type;
-    @Column
-    private Integer genre;
-    @Column
-    private Integer country;
+    @ManyToOne
+    @JoinColumn(name = "type", referencedColumnName = "id")
+    private Type type;
+    @ManyToOne
+    @JoinColumn(name = "country", referencedColumnName = "id")
+    private Country country;
     @Column
     private Double rating;
+    @Column
+    private Integer budget;
+    @Column
+    private Integer duration;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "film_genres",
+            joinColumns = @JoinColumn(name = "film"),
+            inverseJoinColumns = @JoinColumn(name = "genre"))
+    private Set<Genre> genres;
+    @OneToMany(mappedBy = "film")
+    private Set<FilmStaff> filmStaffs;
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", type=" + type +
+                ", country=" + country +
+                ", rating=" + rating +
+                ", budget=" + budget +
+                ", duration=" + duration +
+                '}';
+    }
 }
+
+
