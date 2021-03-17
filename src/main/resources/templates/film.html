@@ -6,14 +6,42 @@
 </head>
 <body>
 <p th:text="${film.id}"></p>
+<p th:text="${film.type.name}"></p>
 <p th:text="${film.name}"></p>
 <p th:text="${film.date}"></p>
 <p th:text="${film.country.name}"></p>
 <p th:text="${film.rating}"></p>
 <p th:text="${film.budget}"></p>
+<p></p>
 <table>
     <tr th:each="genre:${genres}">
         <td th:text="${genre.getName()}"></td>
+    </tr>
+</table>
+<p></p>
+<table>
+    <tr th:each="s:${staffs}">
+        <td th:text="${s.role.name}"></td>
+        <td th:text="${s.staff.name}"></td>
+        <td th:text="${s.staff.birthdate}"></td>
+        <td th:text="${s.staff.country.name}"></td>
+    </tr>
+</table>
+<p></p>
+<table>
+    <tr th:each="g:${grades}">
+        <td th:text="${g.getUser().getUsername()}"></td>
+        <td th:text="${g.getGrade()}"></td>
+    </tr>
+</table>
+<p></p>
+<table>
+    <tr th:each="r:${reviews}">
+        <td th:text="${r.getAuthor()}"> </td>
+        <td th:text="${r.getFilm()}"> </td>
+        <td th:text="${r.getGrade()}"></td>
+        <td th:text="${r.getText()}"></td>
+        <td th:text="${r.getDate()}"></td>
     </tr>
 </table>
 </body>

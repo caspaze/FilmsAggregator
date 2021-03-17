@@ -9,10 +9,10 @@ public interface UserService {
     
     UserDTO saveUser(UserDTO usersDto) throws ValidationException;
 
-    void deleteUser(Integer id);
+    void deleteUser(Long id);
 
     UserDTO findByEmail(String login);
 
     List<UserDTO> findAll();
-    UserDTO findById(Integer id);
+    UserDTO findById(Long id);
 }

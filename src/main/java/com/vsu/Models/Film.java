@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,7 +18,7 @@ import java.util.Set;
 public class Film implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column
     private String name;
     @Column
@@ -42,20 +42,11 @@ public class Film implements Serializable {
     private Set<Genre> genres;
     @OneToMany(mappedBy = "film")
     private Set<FilmStaff> filmStaffs;
+    @OneToMany(mappedBy = "film")
+    private List<Grade> grades;
+    @OneToMany(mappedBy = "film")
+    private List<Review> reviews;
 
-    @Override
-    public String toString() {
-        return "Film{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", date=" + date +
-                ", type=" + type +
-                ", country=" + country +
-                ", rating=" + rating +
-                ", budget=" + budget +
-                ", duration=" + duration +
-                '}';
-    }
 }
 
 

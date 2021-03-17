@@ -14,20 +14,21 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class RepositoryUserService implements UserService{
+public class RepositoryUserService{
     private final UserRepository userRepository;
     private final UserConverter userConverter;
-    @Override
+
     public UserDTO saveUser(UserDTO userDTO) throws ValidationException{
         validateUserDto(userDTO);
         User savedUser = userRepository.save(userConverter.userDtoToUser(userDTO));
         return userConverter.userToUserDto(savedUser);
     }
-    @Override
-    public void deleteUser(Integer id){
+
+
+    public void deleteUser(Long id){
         userRepository.deleteById(id);
     }
-    @Override
+
     public UserDTO findByEmail(String email){
         User user = userRepository.findByUsername(email);
         if(user!=null){
@@ -35,12 +36,11 @@ public class RepositoryUserService implements UserService{
         }
         return null;
     }
-    @Override
     public List<UserDTO> findAll(){
         return userRepository.findAll().stream().map(userConverter::userToUserDto).collect(Collectors.toList());
     }
-    @Override
-    public UserDTO findById(Integer id){
+
+    public UserDTO findById(Long id){
         Optional<User> user = userRepository.findById(id);
         return userConverter.userToUserDto(user.get());
     }

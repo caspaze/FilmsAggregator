@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/film")
@@ -19,12 +17,13 @@ import java.util.Set;
 public class FilmController {
     private final RepositoryFilmService repositoryFilmService;
     @GetMapping("/{id}")
-    public String getFilm(@PathVariable Integer id, Model model){
+    public String getFilm(@PathVariable Long id, Model model){
         FilmDTO filmDTO = repositoryFilmService.findById(id);
         model.addAttribute("film",filmDTO);
-        model.addAttribute("type",filmDTO.getType());
         model.addAttribute("genres",filmDTO.getGenres());
-        //Genre[] genres = (Genre[]) filmDTO.getGenres().toArray();
+        model.addAttribute("staffs",filmDTO.getFilmStaffs());
+        model.addAttribute("grades",filmDTO.getGrades());
+        model.addAttribute("reviews",filmDTO.getReviews());
         return "film";
     }
 

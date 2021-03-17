@@ -14,12 +14,8 @@ import java.util.Optional;
 public class RepositoryFilmService {
     private final FilmRepository filmRepository;
     private final FilmConverter filmConverter;
-
-    public FilmDTO findById(Integer id){
+    public FilmDTO findById(Long id){
         Optional<Film> film = filmRepository.findById(id);
         return filmConverter.filmToFilmDto(film.get());
     }
-
-
-
 }

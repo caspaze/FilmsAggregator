@@ -1,24 +1,27 @@
 package com.vsu.Models;
 
-import lombok.EqualsAndHashCode;
-import org.springframework.context.annotation.Primary;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 @Entity
+@Getter
+@Setter
 @Table(name = "film_staff")
 public class FilmStaff {
     @EmbeddedId
     FilmStaffId filmStaffId;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("film")
+    @JoinColumn(name="film",referencedColumnName = "id")
     private Film film;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("staff")
+    @JoinColumn(name="staff",referencedColumnName = "id")
     private Staff staff;
     @ManyToOne
-    @JoinColumn(name="role",referencedColumnName = "id")
+    @MapsId("role")
+    @JoinColumn(name = "role",referencedColumnName = "id")
     private FilmRole role;
-
 
 }

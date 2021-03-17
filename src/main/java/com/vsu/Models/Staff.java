@@ -8,13 +8,15 @@ import java.util.Set;
 
 @Entity
 @Table(name = "staff")
+@Setter
+@Getter
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column
     private String name;
     @Column
@@ -25,13 +27,4 @@ public class Staff {
     @OneToMany(mappedBy = "staff")
     private Set<FilmStaff> filmStaffs;
 
-    @Override
-    public String toString() {
-        return "Staff{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birthdate=" + birthdate +
-                ", country=" + country +
-                '}';
-    }
 }

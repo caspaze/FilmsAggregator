@@ -14,7 +14,7 @@ import java.util.Set;
 public class Genre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column
     private String name;
     @ManyToMany(mappedBy = "genres")

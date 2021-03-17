@@ -16,6 +16,9 @@ public class FilmConverter {
                 .budget(filmDTO.getBudget())
                 .duration(filmDTO.getDuration())
                 .genres(filmDTO.getGenres())
+                .filmStaffs(filmDTO.getFilmStaffs())
+                .grades(filmDTO.getGrades())
+                .reviews(filmDTO.getReviews())
                 .build();
     }
     public FilmDTO filmToFilmDto(Film film){
@@ -29,6 +32,9 @@ public class FilmConverter {
                 .budget(film.getBudget())
                 .duration(film.getDuration())
                 .genres(film.getGenres())
+                .filmStaffs(film.getFilmStaffs())
+                .grades(film.getGrades())
+                .reviews(film.getReviews())
                 .build();
     }
 }

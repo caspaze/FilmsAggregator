@@ -22,7 +22,7 @@ public class UserController {
         return userService.saveUser(userDTO);
     }
     @GetMapping("/{id}")
-    public String getUser(@PathVariable Integer id, Model model) {
+    public String getUser(@PathVariable Long id, Model model) {
         log.info("Handling find all users request");
         UserDTO userDTO = userService.findById(id);
         model.addAttribute("id", userDTO.getId());
@@ -37,7 +37,7 @@ public class UserController {
         return userService.findByEmail(email);
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         log.info("Handling delete user request: " + id);
         userService.deleteUser(id);
         return ResponseEntity.ok().build();

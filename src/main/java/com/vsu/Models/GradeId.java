@@ -2,7 +2,6 @@ package com.vsu.Models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -13,11 +12,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class FilmStaffId implements Serializable {
+public class GradeId implements Serializable {
+    @Column
+    private Long user;
     @Column
     private Long film;
-    @Column
-    private Long staff;
-    @Column
-    private Long role;
 }
