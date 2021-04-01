@@ -23,6 +23,8 @@ public class Film implements Serializable {
     private String name;
     @Column
     private LocalDate date;
+    @Column
+    private Byte[] image;
     @ManyToOne
     @JoinColumn(name = "type", referencedColumnName = "id")
     private Type type;
@@ -46,7 +48,6 @@ public class Film implements Serializable {
     private List<Grade> grades;
     @OneToMany(mappedBy = "film")
     private List<Review> reviews;
-
 }
 
 

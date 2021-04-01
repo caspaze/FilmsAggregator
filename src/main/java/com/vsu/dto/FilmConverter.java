@@ -19,6 +19,7 @@ public class FilmConverter {
                 .filmStaffs(filmDTO.getFilmStaffs())
                 .grades(filmDTO.getGrades())
                 .reviews(filmDTO.getReviews())
+                .image(filmDTO.getImage())
                 .build();
     }
     public FilmDTO filmToFilmDto(Film film){
@@ -35,6 +36,7 @@ public class FilmConverter {
                 .filmStaffs(film.getFilmStaffs())
                 .grades(film.getGrades())
                 .reviews(film.getReviews())
+                .image(film.getImage())
                 .build();
     }
 }

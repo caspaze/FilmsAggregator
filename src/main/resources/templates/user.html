@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>User</title>
@@ -7,9 +7,24 @@
 <body>
 <h User/>
 
-"id: " <p th:text="${id}"></p>
-"username: " <p th:text="${username}"></p>
-"email: " <p th:text="${email}"></p>
-"role: " <p th:text="${role.name}"></p>
+<p th:text="${user.getId()}"></p>
+<p th:text="${user.getUsername()}"></p>
+<p th:text="${user.getEmail()}"></p>
+<p th:text="${user.getRole().getName()}"></p>
+<table>
+    <tr th:each="g:${grades}">
+        <th th:text="${g.getFilm().getName()}"></th>
+        <th th:text="${g.getGrade()}"></th>
+    </tr>
+</table>
+<p></p>
+<table>
+    <tr th:each="review:${reviews}">
+        <th th:text="${review.getFilm()}"></th>
+        <th th:text="${review.getDate()}"></th>
+        <th th:text="${review.getText()}"></th>
+        <th th:text="${review.getGrade()}"></th>
+    </tr>
+</table>
 </body>
 </html>

@@ -10,8 +10,9 @@ public class UserConverter {
                 .id(userDTO.getId())
                 .email(userDTO.getEmail())
                 .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
                 .role(userDTO.getRole())
+                .grades(userDTO.getGrades())
+                .reviews(userDTO.getReviews())
                 .build();
 
     }
@@ -20,8 +21,9 @@ public class UserConverter {
                 .id(user.getId())
                 .email(user.getEmail())
                 .username(user.getUsername())
-                .password(user.getPassword())
                 .role(user.getRole())
+                .grades(user.getGrades())
+                .reviews(user.getReviews())
                 .build();
     }
 }

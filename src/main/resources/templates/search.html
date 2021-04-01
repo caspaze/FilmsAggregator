@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="col-2 offset-1 w-75 navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <form class="d-flex" method="get" action="/search">
+            <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<table>
+    <tr th:each="f:${page}">
+        <div class="col-sm-8 offset-1">
+            <a th:href="@{'/film/' + ${f.getId()}}" style="text-decoration: none" class="link-dark">
+                <div class="card mt-3 w-75" style="width: 18rem;">
+                    <img th:src="'data:image/jpeg;base64,' + ${f.getStringImg()}" height="100" width="40" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${f.getName()}"></h5>
+                        <p class="card-text"><span th:text="${f.getDate().getYear()}"></span>, <span th:text="${f.getCountry().getName()}"></span></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </tr>
+</table>
+<ul class="offset-1 mt-5 nav nav-pills">
+    <li class="nav-item" th:each="i:${#numbers.sequence(0,page.getTotalPages()-1)}">
+        <a th:href="@{/search(page=${i},name=${name})}" th:text="${i+1}" class="nav-link" th:classappend="${page.getNumber()==i} ? 'active':''"></a>
+    </li>
+</ul>
+</body>
+</html>
