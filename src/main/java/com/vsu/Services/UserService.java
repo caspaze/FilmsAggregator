@@ -41,9 +41,9 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public UserDTO findById(Long id){
+    public User findById(Long id){
         Optional<User> user = userRepository.findById(id);
-        return userConverter.userToUserDto(user.get());
+        return user.get();
     }
 
     @Override

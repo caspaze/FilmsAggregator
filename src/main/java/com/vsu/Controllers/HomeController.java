@@ -26,6 +26,7 @@ public class HomeController {
         model.addAttribute("film2",films.get(1));
         model.addAttribute("film3",films.get(2));
         model.addAttribute("film4",films.get(3));
+        model.addAttribute("user",user);
         return "index";
     }
     @GetMapping("/search")

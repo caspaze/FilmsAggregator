@@ -27,7 +27,8 @@
         </svg>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Профиль</a></li>
+        <li th:if="${user!=null}"><a class="dropdown-item" th:href="@{'/user/' + ${user.getId()}}"> Профиль</a></li>
+        <li th:if="${user==null}"><a class="dropdown-item" th:href="@{'/login'}"> Войти в профиль</a></li>
         <li><a class="dropdown-item" href="#">Настройки</a></li>
         <li><hr class="dropdown-divider"></li>
         <li>
@@ -41,12 +42,6 @@
 
     </ul>
 </div>
-<div>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
-</div>
-
 <div class="row">
     <div class="col-sm-2 offset-1">
         <a th:href="@{'/film/' + ${film1.getId()}}" style="text-decoration: none" class="link-dark">
@@ -65,7 +60,7 @@
     <div class="col-sm-2">
         <a th:href="@{'/film/' + ${film2.getId()}}" style="text-decoration: none" class="link-dark">
         <div class="card mt-5" style="width: 18rem;">
-            <img class="card-img-top" src="../static/images/defaultImage.png" alt="..." th:src="@{images/defaultImage.png}" >
+            <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film2.getStringImg()}" >
             <div class="card-body">
                 <h5 class="card-title" th:text="${film2.getName()}"></h5>
                 <p class="card-text"><span th:text="${film2.getDate().getYear()}"></span>, <span th:text="${film2.getCountry().getName()}"></span></p>
@@ -81,7 +76,7 @@
     <div class="col-sm-2 offset-1">
         <a th:href="@{'/film/' + ${film2.getId()}}" style="text-decoration: none" class="link-dark">
         <div class="card mt-3" style="width: 18rem;">
-            <img class="card-img-top" src="../static/images/defaultImage.png" alt="..." th:src="@{images/defaultImage.png}" >
+            <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film3.getStringImg()}" >
             <div class="card-body">
                 <h5 class="card-title" th:text="${film3.getName()}"></h5>
                 <p class="card-text"><span th:text="${film3.getDate().getYear()}"></span>, <span th:text="${film3.getCountry().getName()}"></span></p>
@@ -95,7 +90,7 @@
     <div class="col-sm-2">
         <a th:href="@{'/film/' + ${film3.getId()}}" style="text-decoration: none" class="link-dark">
         <div class="card mt-3" style="width: 18rem;">
-            <img class="card-img-top" src="../static/images/defaultImage.png" alt="..." th:src="@{images/defaultImage.png}" >
+            <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film4.getStringImg()}" >
             <div class="card-body">
                 <h5 class="card-title" th:text="${film4.getName()}"></h5>
                 <p class="card-text"><span th:text="${film4.getDate().getYear()}"></span>, <span th:text="${film4.getCountry().getName()}"></span></p>

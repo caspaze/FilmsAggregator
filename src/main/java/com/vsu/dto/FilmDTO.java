@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.coobird.thumbnailator.Thumbnailator;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 import java.util.Set;
+
 
 @Data
 @Builder
@@ -34,6 +36,16 @@ public class FilmDTO {
     private Set<FilmStaff> filmStaffs;
     private List<Grade> grades;
     private List<Review> reviews;
+    public String getStringImg(int x, int y) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(1000);
+        BufferedImage image = ImageIO.read(new File("src/main/resources/static/images/defaultImage.png"));
+        image = Thumbnailator.createThumbnail(image,x,y);
+        ImageIO.write(image, "png", baos);
+        baos.flush();
+        String img = Base64.getMimeEncoder().encodeToString(baos.toByteArray());
+        baos.close();
+        return img;
+    }
     public String getStringImg() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(1000);
         BufferedImage image = ImageIO.read(new File("src/main/resources/static/images/defaultImage.png"));

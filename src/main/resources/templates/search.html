@@ -16,7 +16,7 @@
         </form>
     </div>
 </nav>
-<table>
+<!--<table>
     <tr th:each="f:${page}">
         <div class="col-sm-8 offset-1">
             <a th:href="@{'/film/' + ${f.getId()}}" style="text-decoration: none" class="link-dark">
@@ -30,7 +30,18 @@
             </a>
         </div>
     </tr>
-</table>
+</table>-->
+<div class="col-sm-8 offset-1 container">
+    <div class="row" th:each="f:${page}">
+        <div class="row justify-content-start">
+            <img class="img-thumbnail" th:src="'data:image/jpeg;base64,' + ${f.getStringImg(200,200)}"  alt="...">
+        </div>
+        <div class="row justify-content-end">
+            <p th:text="${f.getName()}"></p>
+            <p th:text="${f.getDate().getYear()}">th:text="${f.getCountry().getName()}"></p>
+        </div>
+    </div>
+</div>
 <ul class="offset-1 mt-5 nav nav-pills">
     <li class="nav-item" th:each="i:${#numbers.sequence(0,page.getTotalPages()-1)}">
         <a th:href="@{/search(page=${i},name=${name})}" th:text="${i+1}" class="nav-link" th:classappend="${page.getNumber()==i} ? 'active':''"></a>

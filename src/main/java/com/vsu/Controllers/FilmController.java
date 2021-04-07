@@ -21,7 +21,7 @@ public class FilmController {
     @GetMapping("/{id}")
     public String getFilm(@PathVariable Long id, Model model) throws IOException {
         FilmDTO filmDTO = filmService.findById(id);
-        model.addAttribute("img",filmDTO.getStringImg());
+        model.addAttribute("img",filmDTO.getStringImg(700,200));
         model.addAttribute("film",filmDTO);
         Set<Staff> directors = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<Staff> producers = new TreeSet<>(Comparator.comparing(Staff::getName));
