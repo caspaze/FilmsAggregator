@@ -1,9 +1,7 @@
 package com.vsu.Controllers;
 
 import com.vsu.Models.User;
-import com.vsu.Repository.RoleRepository;
 import com.vsu.Services.UserService;
-import com.vsu.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

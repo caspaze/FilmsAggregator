@@ -16,21 +16,7 @@
         </form>
     </div>
 </nav>
-<!--<table>
-    <tr th:each="f:${page}">
-        <div class="col-sm-8 offset-1">
-            <a th:href="@{'/film/' + ${f.getId()}}" style="text-decoration: none" class="link-dark">
-                <div class="card mt-3 w-75" style="width: 18rem;">
-                    <img th:src="'data:image/jpeg;base64,' + ${f.getStringImg()}" height="100" width="40" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${f.getName()}"></h5>
-                        <p class="card-text"><span th:text="${f.getDate().getYear()}"></span>, <span th:text="${f.getCountry().getName()}"></span></p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </tr>
-</table>-->
+
 <div class="col-sm-8 offset-1 container">
     <div class="row" th:each="f:${page}">
         <div class="row justify-content-start">

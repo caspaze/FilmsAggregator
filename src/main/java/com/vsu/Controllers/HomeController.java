@@ -12,14 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
 import java.util.List;
 @Controller
 @AllArgsConstructor
 public class HomeController {
     private final FilmService filmService;
     @GetMapping("/")
-    public String homePage(@AuthenticationPrincipal User user, Model model) throws IOException {
+    public String homePage(@AuthenticationPrincipal User user, Model model){
 
         List<FilmDTO> films = filmService.findLastFilms();
         model.addAttribute("film1",films.get(0));
