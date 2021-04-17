@@ -2,9 +2,11 @@ package com.vsu.Controllers;
 
 import com.vsu.Models.FilmStaff;
 import com.vsu.Models.Staff;
+import com.vsu.Models.User;
 import com.vsu.dto.FilmDTO;
 import com.vsu.Services.FilmService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ import java.util.*;
 public class FilmController {
     private final FilmService filmService;
     @GetMapping("/{id}")
-    public String getFilm(@PathVariable Long id, Model model) throws IOException {
+    public String getFilm(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) throws IOException {
         FilmDTO filmDTO = filmService.findById(id);
         model.addAttribute("img",filmDTO.getStringImg(700,200));
         model.addAttribute("film",filmDTO);
@@ -80,6 +82,7 @@ public class FilmController {
         model.addAttribute("staffs",filmDTO.getFilmStaffs());
         model.addAttribute("grades",filmDTO.getGrades());
         model.addAttribute("reviews",filmDTO.getReviews());
+        model.addAttribute("user",user);
         return "film";
     }
 

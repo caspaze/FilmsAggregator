@@ -8,40 +8,62 @@
 </head>
 <body>
 <div class="d-flex flex-row">
-    <nav class="col-2 offset-1 w-75 navbar navbar-light bg-light">
+    <nav class="col-2 offset-1 w-75 navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
-            <form class="d-flex" method="get" action="/search">
-                <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <a class="navbar-brand" th:href="@{/}">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Профиль
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li th:if="${user!=null}"><a class="dropdown-item" th:href="@{'/user/' + ${user.getId()}}"> Профиль</a></li>
+                            <li th:if="${user==null}"><a class="dropdown-item" th:href="@{'/login'}"> Войти в профиль</a></li>
+                            <li th:if="${user!=null}"><a class="dropdown-item" th:href="@{'/user/settings'}">Настройки</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form class="dropdown-item" th:action="@{/logout}" method="post">
+                                    <input type="submit" value="Sign Out"/>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" method="get" action="/search">
+                    <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
         </div>
     </nav>
 </div>
-<div class="dropdown">
-    <button class="btn btn-primary btn-lg dropdown-toggle offset-11" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-        </svg>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li th:if="${user!=null}"><a class="dropdown-item" th:href="@{'/user/' + ${user.getId()}}"> Профиль</a></li>
-        <li th:if="${user==null}"><a class="dropdown-item" th:href="@{'/login'}"> Войти в профиль</a></li>
-        <li><a class="dropdown-item" href="#">Настройки</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li>
-            <input class="dropdown-item" type="submit" value="Submit">
-        </li>
-        <li>
-            <form class="dropdown-item" th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
-            </form>
-        </li>
-
-    </ul>
-</div>
-<div class="row">
+<!--<div class="dropdown">
+                <button class="btn btn-primary btn-lg dropdown-toggle offset-11" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li th:if="${user!=null}"><a class="dropdown-item" th:href="@{'/user/' + ${user.getId()}}"> Профиль</a></li>
+                    <li th:if="${user==null}"><a class="dropdown-item" th:href="@{'/login'}"> Войти в профиль</a></li>
+                    <li><a class="dropdown-item" href="#">Настройки</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <input class="dropdown-item" type="submit" value="Submit">
+                    </li>
+                    <li>
+                        <form class="dropdown-item" th:action="@{/logout}" method="post">
+                            <input type="submit" value="Sign Out"/>
+                        </form>
+                    </li>
+                </ul>
+            </div>-->
+<!--<div class="row">
     <div class="col-sm-2 offset-1">
         <a th:href="@{'/film/' + ${film1.getId()}}" style="text-decoration: none" class="link-dark">
         <div class="card mt-5" style="width: 18rem;">
@@ -99,6 +121,19 @@
             </ul>
         </div>
         </a>
+    </div>
+</div>-->
+
+<div class="card-columns" th:each="f:${films}">
+    <div class="col-sm-2 offset-1 card my-3" style="width: 18rem;" >
+        <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${f.getStringImg()}" >
+        <div class="card-body">
+            <h5 class="card-title" th:text="${f.getName()}"></h5>
+            <p class="card-text"><span th:text="${f.getDate().getYear()}"></span>, <span th:text="${f.getCountry().getName()}"></span></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" >Оценка: <span th:text="${f.getRating()}"></span></li>
+        </ul>
     </div>
 </div>
 </body>

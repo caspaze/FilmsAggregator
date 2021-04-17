@@ -20,7 +20,6 @@ public class GradeService {
     private final GradeRepository gradeRepository;
     public Page<Grade> findGrades(User user, Pageable pageable){
         Page<Grade> grades = gradeRepository.findAllByUserIs(user,pageable);
-        List<FilmDTO> filmDTOS = new ArrayList<>();
         return grades;
     }
 }
