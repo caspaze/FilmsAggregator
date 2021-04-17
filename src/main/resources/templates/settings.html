@@ -11,7 +11,6 @@
     <script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div class="d-flex flex-row">
     <nav class="col-2 offset-1 w-75 navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -49,8 +48,6 @@
         </div>
     </nav>
 </div>
-
-
 
 <br><br><br>
 
@@ -91,73 +88,58 @@
         height: 450px;
     }
 </style>
-<div class="container gy-2">
-    <ul class="offset-1 gy-2 w-75 nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{'/user/' + ${id}}">Профиль</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{'/user/' + ${id} + '/votes'}">Оценки</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Рецензии</a>
-        </li>
-    </ul>
-</div>
-<div class="container">
-    <div id="main">
-        <div class="row" id="real-estates-detail">
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <header class="panel-title">
-                            <div class="text-center">
-                                <strong>Пользователь сайта</strong>
-                            </div>
-                        </header>
-                    </div>
-                    <div class="panel-body">
-                        <div class="text-center" id="author">
-                            <img src="http://www.fly-webmaster.ru/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" width="300" height="300" alt="...">
-                            <h3 th:text="${user.getUsername()}"></h3>
-                            <small class="label label-warning">Страна</small>
-                            <p>Фраза</p>
-                            <p class="sosmed-author">
-                                <a href="#"><i class="fa fa-facebook" title="Facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter" title="Twitter"></i></a>
-                                <a href="#"><i class="fa fa-google-plus" title="Google Plus"></i></a>
-                                <a href="#"><i class="fa fa-linkedin" title="Linkedin"></i></a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8 col-xs-12">
-                <div class="panel">
-                    <div class="panel-body">
-                        <ul id="myTab" class="nav nav-pills">
-                            <li class="active"><a th:href="@{'/user/' + ${user.getId()}}" data-toggle="tab">О пользователе</a></li>
-                        </ul>
-                        <div id="myTabContent" class="tab-content">
-                            <hr>
-                            <div class="tab-pane fade active in" id="detail">
-                                <table class="table table-th-block">
-                                    <tbody>
-                                    <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
-                                    <tr><td class="active">Страна:</td><td></td></tr>
-                                    <tr><td class="active">Город:</td><td></td></tr>
-                                    <tr><td class="active">Пол:</td><td></td></tr>
-                                    <tr><td class="active">Возраст:</td><td></td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+<div class="col-lg-8 col-md-8 col-xs-12">
+    <form class="form-horizontal" th:action="@{/user/settings}" method="post">
+        <div class="form-group">
+            <label for="inputEmail" class="col-xs-2 control-label">Адрес email:</label>
+            <div class="col-xs-10">
+                <input type="email" class="form-control" id="inputEmail" name="email" th:placeholder="${user.getEmail()}">
             </div>
         </div>
-    </div>
-</div><!-- /.main -->
-</div><!-- /.container -->
+        <div class="form-group">
+            <label class="col-xs-2 control-label">Имя пользователя:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" name="username" th:placeholder="${user.getUsername()}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label">Дата рождения:</label>
+            <div class="col-xs-10">
+                <input type="date" class="form-control" name="birthdate" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label">Страна:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" name="country" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label">ВКонтакте:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" name="vkLink" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label">Google:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" name="googleLink" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label">Twitter:</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" name="twitterLink" >
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <button type="submit" class="btn btn-default">Сохранить</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
 </body>
 </html>

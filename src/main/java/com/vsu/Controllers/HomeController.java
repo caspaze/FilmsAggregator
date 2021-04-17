@@ -25,17 +25,20 @@ public class HomeController {
         model.addAttribute("film2",films.get(1));
         model.addAttribute("film3",films.get(2));
         model.addAttribute("film4",films.get(3));
+        model.addAttribute("films",films);
         model.addAttribute("user",user);
         return "index";
     }
     @GetMapping("/search")
-    public String findByName(@RequestParam String name,
+    public String findByName(@AuthenticationPrincipal User user,
+                             @RequestParam String name,
                              @RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "5") int size,
                              Model model){
         Page<FilmDTO> filmPage = filmService.findFilms(name,PageRequest.of(page,size));
         model.addAttribute("page",filmPage);
         model.addAttribute("name",name);
+        model.addAttribute("user",user);
         return "search";
     }
 

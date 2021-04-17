@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -22,4 +23,6 @@ public class Grade {
     private Film film;
     @Column
     private Integer grade;
+    @Column
+    private LocalDate date;
 }
