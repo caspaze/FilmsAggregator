@@ -1,5 +1,9 @@
 package com.vsu.Services;
 
+import com.vsu.Models.Grade;
+import com.vsu.Models.GradeId;
+import com.vsu.Models.User;
+import com.vsu.Repository.GradeRepository;
 import com.vsu.dto.FilmConverter;
 import com.vsu.dto.FilmDTO;
 import com.vsu.Models.Film;
@@ -15,12 +19,14 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
 @AllArgsConstructor
 public class FilmService {
     private final FilmRepository filmRepository;
+    private final GradeRepository gradeRepository;
     private final FilmConverter filmConverter;
     public FilmDTO findById(Long id){
         Optional<Film> film = filmRepository.findById(id);
@@ -32,7 +38,7 @@ public class FilmService {
         return filmConverter.filmToFilmDto(film.get());
     }
     public Page<FilmDTO> findFilms(String name, Pageable pageable){
-        Page<Film> films = filmRepository.findFilmsByNameContaining(name,pageable);
+        Page<Film> films = filmRepository.findFilmsByNameContainingIgnoreCase(name,pageable);
         List<FilmDTO> filmDTOS = new ArrayList<>();
         for(Film film:films.getContent()){
             filmDTOS.add(filmConverter.filmToFilmDto(film));
@@ -63,6 +69,19 @@ public class FilmService {
             }
             film.setImage(byteArr);
         }
+    }
+    public void addGrade(Integer userGrade, Long filmId, User user){
+        Film film = filmRepository.findById(filmId).get();
+        Grade grade = Grade.builder()
+                .gradeId(new GradeId(user.getId(),film.getId()))
+                .film(film)
+                .user(user)
+                .grade(userGrade)
+                .date(LocalDate.now())
+                .build();
+        gradeRepository.save(grade);
+        film.setRating(gradeRepository.findAvgGradeByFilm(film.getId()));
+        filmRepository.save(film);
     }
 
 }

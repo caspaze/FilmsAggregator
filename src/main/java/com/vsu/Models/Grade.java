@@ -1,7 +1,6 @@
 package com.vsu.Models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,12 +9,15 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "grades")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Grade {
     @EmbeddedId
     private GradeId gradeId;
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("user")
-    @JoinColumn(name="user",referencedColumnName = "id")
+    @JoinColumn(name="\"user\"",referencedColumnName = "id")
     private User user;
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("film")

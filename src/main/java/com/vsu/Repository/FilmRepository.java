@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface FilmRepository extends JpaRepository<Film,Long> {
-    Page<Film> findFilmsByNameContaining(String name, Pageable pageable);
-    //List<Film> findFilmsByNameContaining(String name);
+    Page<Film> findFilmsByNameContainingIgnoreCase(String name, Pageable pageable);
     @Query("from Film order by date desc")
     List<Film> findLastFilms();
 

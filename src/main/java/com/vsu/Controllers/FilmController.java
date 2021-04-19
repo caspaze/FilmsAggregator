@@ -1,5 +1,6 @@
 package com.vsu.Controllers;
 
+import com.vsu.Models.Film;
 import com.vsu.Models.FilmStaff;
 import com.vsu.Models.Staff;
 import com.vsu.Models.User;
@@ -82,9 +83,14 @@ public class FilmController {
         model.addAttribute("staffs",filmDTO.getFilmStaffs());
         model.addAttribute("grades",filmDTO.getGrades());
         model.addAttribute("reviews",filmDTO.getReviews());
+        model.addAttribute("id",filmDTO.getId());
         model.addAttribute("user",user);
         return "film";
     }
-
+    @PostMapping("/saveGrade")
+    public String saveGrade(@AuthenticationPrincipal User user,@RequestParam(required = true) Long id, Integer grade){
+        filmService.addGrade(grade,id,user);
+        return "redirect:/film/" + id;
+    }
 
 }

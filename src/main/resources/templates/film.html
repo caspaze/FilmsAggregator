@@ -44,88 +44,109 @@
         </div>
     </nav>
 </div>
-<img class='img-thumbnail offset-1' th:src="'data:image/jpeg;base64,' + ${img}" />
+<br><br><br>
 <div>
-    <h2><span th:text="${film.getName()}"></span></h2>
-    <ul class="list-group col-6">
-        <li class="list-group-item">
-            <span>Год производства</span>
-            <span th:text="${film.getDate().getYear()}"></span>
-        </li>
-        <li class="list-group-item">
-            <span th:text="Страна + ${film.getCountry().getName()}"></span>
-        </li>
-        <li class="list-group-item">
-            <span>Жанр</span>
-            <span th:each="i:${film.getGenres()}">
+    <img th:src="'data:image/jpeg;base64,' + ${img}" class="offset-1 rounded float-start" alt="..." th:height="600" th:width="350" style=" border: 3px solid #817e7e;">
+    <div class="offset-4">
+        <h2><span th:text="${film.getName()}"></span></h2>
+        <ul class="list-group col-6">
+            <li class="list-group-item">
+                <label class="col-xs-2 control-label">Год производства:</label>
+                <span th:text="${film.getDate().getYear()}"></span>
+            </li>
+            <li class="list-group-item">
+                <span th:text="Страна + ${film.getCountry().getName()}"></span>
+            </li>
+            <li class="list-group-item">
+                <span>Жанр</span>
+                <span th:each="i:${film.getGenres()}">
                 <span th:text="${i.getName()}"></span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <span>Режисёр</span>
-            <span th:each="i:${directors}">
+            </li>
+            <li class="list-group-item">
+                <span>Режисёр</span>
+                <span th:each="i:${directors}">
                 <span th:text="${i.getName()}"></span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <span>Продюссер</span>
-            <span th:each="i:${producers}">
+            </li>
+            <li class="list-group-item">
+                <span>Продюссер</span>
+                <span th:each="i:${producers}">
                 <span th:text="${i.getName()}"></span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <span>Сценарист</span>
-            <span th:each="i:${screenwriters}">
+            </li>
+            <li class="list-group-item">
+                <span>Сценарист</span>
+                <span th:each="i:${screenwriters}">
                 <span th:text="${i.getName()}"></span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <span>Оператор</span>
-            <span th:each="i:${operators}">
+            </li>
+            <li class="list-group-item" th:if="${!operators.isEmpty()}">
+                <span>Оператор</span>
+                <span th:each="i:${operators}">
                 <span th:text="${i.getName()}"></span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <span>Композитор</span>
-            <span th:each="i:${composers}">
+            </li>
+            <li class="list-group-item" th:if="${!composers.isEmpty()}">
+                <span>Композитор</span>
+                <span th:each="i:${composers}">
                 <span th:text="${i.getName()}"></span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <span>Художник</span>
-            <span th:each="i:${painters}">
+            </li>
+            <li class="list-group-item" th:if="${!painters.isEmpty()}">
+                <span>Художник</span>
+                <span th:each="i:${painters}">
                 <span th:text="${i.getName()}"></span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <span>Монтаж</span>
-            <span th:each="i:${editors}">
+            </li>
+            <li class="list-group-item" th:if="${!editors.isEmpty()}">
+                <span>Монтаж</span>
+                <span th:each="i:${editors}">
                 <span th:text="${i.getName()}"></span>
             </span>
-        </li>
-        <li class="list-group-item">
-            <span>В главных ролях</span>
-            <span th:each="i:${actors}">
+            </li>
+            <li class="list-group-item">
+                <span>В главных ролях</span>
+                <span th:each="i:${actors}">
                 <span th:text="${i.getName()}"></span>
             </span>
+            </li>
+            <li class="list-group-item">
+                <span th:text="Бюджет + ' ' + ${film.getBudget()}"></span>
+            </li>
+            <li class="list-group-item">
+                <span th:text="Длительность + ' '+ ${film.getDuration()}"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="offset-9 ">
+        <p th:if="${film.getRating()>=5.0}" class="fs-1" style="font-size:25px;color:lime" th:text="${film.getRating()}"></p>
+        <p th:if="${film.getRating()<5.0}" class="fs-1" style="font-size:25px;color:firebrick" th:text="${film.getRating()}"></p>
+    </div>
+</div>
+<br><br><br><br><br>
+<div class="offset-1">
+    <a href="#" class="btn btn-info btn-lg" tabindex="-1" role="button">Написать рецензию</a>
+</div>
+<div class="btn-group offset-1">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Моя оценка
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <form class="dropdown-item" th:action="@{/film/saveGrade(id=${film.getId()})}" method="post">
+                <input type="submit" value="1" name="grade"/>
+            </form>
         </li>
-        <li class="list-group-item">
-            <span th:text="Бюджет + ' ' + ${film.getBudget()}"></span>
-        </li>
-        <li class="list-group-item">
-            <span th:text="Длительность + ' '+ ${film.getDuration()}"></span>
-        </li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Separated link</a></li>
     </ul>
 </div>
 
-<table>
-    <tr th:each="r:${reviews}">
-        <td th:text="${r.getAuthor()}"> </td>
-        <td th:text="${r.getFilm()}"> </td>
-        <td th:text="${r.getGrade()}"></td>
-        <td th:text="${r.getText()}"></td>
-        <td th:text="${r.getDate()}"></td>
-    </tr>
-</table>
+<br><br><br>
+<div class="col-xs-12"><hr></div>
+
 </body>
 </html>

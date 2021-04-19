@@ -21,9 +21,12 @@ public class Review {
     @JoinColumn(name="author",referencedColumnName = "id")
     private User author;
     @Column
+    private String title;
+    @Column
     private String text;
     @Column
-    private Integer grade;
-    @Column
     private LocalDate date;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private ReviewType reviewType;
 }
