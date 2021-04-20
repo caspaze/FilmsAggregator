@@ -1,9 +1,8 @@
 package com.vsu.Controllers;
 
-import com.vsu.Models.Film;
-import com.vsu.Models.FilmStaff;
-import com.vsu.Models.Staff;
-import com.vsu.Models.User;
+import com.vsu.Models.*;
+import com.vsu.Services.GradeService;
+import com.vsu.dto.FilmConverter;
 import com.vsu.dto.FilmDTO;
 import com.vsu.Services.FilmService;
 import lombok.AllArgsConstructor;
@@ -22,9 +21,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class FilmController {
     private final FilmService filmService;
+    private final GradeService gradeService;
+    private final FilmConverter filmConverter;
     @GetMapping("/{id}")
     public String getFilm(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) throws IOException {
         FilmDTO filmDTO = filmService.findById(id);
+        Grade userGrade = gradeService.findUserGrade(user,filmConverter.filmDtoToFilm(filmDTO));
         Set<Staff> directors = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<Staff> producers = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<Staff> actors = new TreeSet<>(Comparator.comparing(Staff::getName));
@@ -57,6 +59,7 @@ public class FilmController {
         model.addAttribute("grades",filmDTO.getGrades());
         model.addAttribute("reviews",filmDTO.getReviews());
         model.addAttribute("id",filmDTO.getId());
+        model.addAttribute("userGrade",userGrade);
         model.addAttribute("user",user);
         return "film";
     }
@@ -65,5 +68,6 @@ public class FilmController {
         filmService.addGrade(grade,id,user);
         return "redirect:/film/" + id;
     }
+
 
 }

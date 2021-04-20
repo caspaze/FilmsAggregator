@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GradeRepository extends JpaRepository<Grade, GradeId> {
     Page<Grade> findAllByUserIs(User user, Pageable pageable);
-    Integer findAllByUser(User user);
     @Query(value = "select avg (g.grade) from grades g where g.film=?1",nativeQuery = true)
     Double findAvgGradeByFilm(Long filmId);
+    Grade findByUserAndFilm(User user,Film film);
     /*@Query("SELECT avg(g.grade) from Grade g where g.user= ?1")
     Double findAvgUserGrade(User user);*/
    /* @Query(value = "SELECT avg(g.grade) from Grade g where g.user=?1 and ",nativeQuery = true)

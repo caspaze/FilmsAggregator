@@ -22,4 +22,7 @@ public class GradeService {
         Page<Grade> grades = gradeRepository.findAllByUserIs(user,pageable);
         return grades;
     }
+    public Grade findUserGrade(User user, Film film){
+        return gradeRepository.findByUserAndFilm(user,film);
+    }
 }

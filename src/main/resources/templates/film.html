@@ -58,93 +58,103 @@
                 <span th:text="Страна + ${film.getCountry().getName()}"></span>
             </li>
             <li class="list-group-item">
-                <span>Жанр</span>
+                <span>Жанр: </span>
                 <span th:each="i:${film.getGenres()}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item">
-                <span>Режисёр</span>
+                <span>Режисёр: </span>
                 <span th:each="i:${directors}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item">
-                <span>Продюссер</span>
+                <span>Продюссер: </span>
                 <span th:each="i:${producers}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item">
-                <span>Сценарист</span>
+                <span>Сценарист: </span>
                 <span th:each="i:${screenwriters}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item" th:if="${!operators.isEmpty()}">
-                <span>Оператор</span>
+                <span>Оператор: </span>
                 <span th:each="i:${operators}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item" th:if="${!composers.isEmpty()}">
-                <span>Композитор</span>
+                <span>Композитор: </span>
                 <span th:each="i:${composers}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item" th:if="${!painters.isEmpty()}">
-                <span>Художник</span>
+                <span>Художник: </span>
                 <span th:each="i:${painters}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item" th:if="${!editors.isEmpty()}">
-                <span>Монтаж</span>
+                <span>Монтаж: </span>
                 <span th:each="i:${editors}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item">
-                <span>В главных ролях</span>
+                <span>В главных ролях: </span>
                 <span th:each="i:${actors}">
                 <span th:text="${i.getName()}"></span>
             </span>
             </li>
             <li class="list-group-item">
-                <span th:text="Бюджет + ' ' + ${film.getBudget()}"></span>
+                <span th:text="'Бюджет:' + ' ' + ${film.getBudget()}"></span>
             </li>
             <li class="list-group-item">
-                <span th:text="Длительность + ' '+ ${film.getDuration()}"></span>
+                <span th:text="'Длительность:' + ' '+ ${film.getDuration()}"></span>
             </li>
         </ul>
     </div>
     <div class="offset-9 ">
         <p th:if="${film.getRating()>=5.0}" class="fs-1" style="font-size:25px;color:lime" th:text="${film.getRating()}"></p>
         <p th:if="${film.getRating()<5.0}" class="fs-1" style="font-size:25px;color:firebrick" th:text="${film.getRating()}"></p>
+        <div th:if="${userGrade!=null}">
+            <p th:if="${film.getRating()>=5.0}" class="fs-1" style="font-size:10px;color:lime" th:text="'Моя оценка: ' + ${userGrade.getGrade()}"></p>
+            <p th:if="${film.getRating()<5.0}" class="fs-1" style="font-size:10px;color:firebrick" th:text="'Моя оценка: ' + ${userGrade.getGrade()}"></p>
+        </div>
     </div>
 </div>
 <br><br><br><br><br>
 <div class="offset-1">
     <a href="#" class="btn btn-info btn-lg" tabindex="-1" role="button">Написать рецензию</a>
 </div>
-<div class="btn-group offset-1">
-    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Моя оценка
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <form class="dropdown-item" th:action="@{/film/saveGrade(id=${film.getId()})}" method="post">
-                <input type="submit" value="1" name="grade"/>
-            </form>
-        </li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
-</div>
+<br><br>
 
+<div class="container offset-1">
+    <form th:action="@{/film/saveGrade(id=${film.getId()})}" method="post">
+        <div class="form-group w-25">
+            <label for="sel1">Поставить оценку: </label>
+            <select class="form-control" id="sel1" name="grade">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Оценить</button>
+    </form>
+</div>
 <br><br><br>
 <div class="col-xs-12"><hr></div>
 
