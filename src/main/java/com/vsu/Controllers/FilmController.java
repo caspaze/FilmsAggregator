@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -24,8 +25,6 @@ public class FilmController {
     @GetMapping("/{id}")
     public String getFilm(@AuthenticationPrincipal User user, @PathVariable Long id, Model model) throws IOException {
         FilmDTO filmDTO = filmService.findById(id);
-        model.addAttribute("img",filmDTO.getStringImg(700,200));
-        model.addAttribute("film",filmDTO);
         Set<Staff> directors = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<Staff> producers = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<Staff> actors = new TreeSet<>(Comparator.comparing(Staff::getName));
@@ -35,42 +34,16 @@ public class FilmController {
         Set<Staff> painters = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<Staff> editors = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<FilmStaff> staffSet = filmDTO.getFilmStaffs();
-        for(FilmStaff staff: staffSet){
-            switch(staff.getRole().getName()){
-                case "Режиссёр":{
-                    directors.add(staff.getStaff());
-                    break;
-                }
-                case "Продюссер":{
-                    producers.add(staff.getStaff());
-                    break;
-                }
-                case "Актёр":{
-                    actors.add(staff.getStaff());
-                    break;
-                }
-                case "Сценарист":{
-                    screenwriters.add(staff.getStaff());
-                    break;
-                }
-                case "Оператор":{
-                    operators.add(staff.getStaff());
-                    break;
-                }
-                case "Композитор":{
-                    composers.add(staff.getStaff());
-                    break;
-                }
-                case "Художник":{
-                    painters.add(staff.getStaff());
-                    break;
-                }
-                case "Монтаж":{
-                    editors.add(staff.getStaff());
-                    break;
-                }
-            }
-        }
+        staffSet.stream().filter((x)->x.getRole().getName().equals("Режиссёр")).forEach((x)->directors.add(x.getStaff()));
+        staffSet.stream().filter((x)->x.getRole().getName().equals("Продюссер")).forEach((x)->producers.add(x.getStaff()));
+        staffSet.stream().filter((x)->x.getRole().getName().equals("Актёр")).forEach((x)->actors.add(x.getStaff()));
+        staffSet.stream().filter((x)->x.getRole().getName().equals("Сценарист")).forEach((x)->screenwriters.add(x.getStaff()));
+        staffSet.stream().filter((x)->x.getRole().getName().equals("Оператор")).forEach((x)->operators.add(x.getStaff()));
+        staffSet.stream().filter((x)->x.getRole().getName().equals("Композитор")).forEach((x)->composers.add(x.getStaff()));
+        staffSet.stream().filter((x)->x.getRole().getName().equals("Художник")).forEach((x)->painters.add(x.getStaff()));
+        staffSet.stream().filter((x)->x.getRole().getName().equals("Монтаж")).forEach((x)->painters.add(x.getStaff()));
+        model.addAttribute("img",filmDTO.getStringImg(700,200));
+        model.addAttribute("film",filmDTO);
         model.addAttribute("directors",directors);
         model.addAttribute("producers",producers);
         model.addAttribute("actors",actors);
