@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface FilmRepository extends JpaRepository<Film,Long> {
     Page<Film> findFilmsByNameContainingIgnoreCase(String name, Pageable pageable);
-    @Query("from Film order by date desc")
+    @Query(value = "select * from films order by date desc limit 4",nativeQuery = true)
     List<Film> findLastFilms();
 
 }

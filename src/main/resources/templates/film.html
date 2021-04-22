@@ -129,10 +129,6 @@
     </div>
 </div>
 <br><br><br><br><br>
-<div class="offset-1">
-    <a href="#" class="btn btn-info btn-lg" tabindex="-1" role="button">Написать рецензию</a>
-</div>
-<br><br>
 
 <div class="container offset-1">
     <form th:action="@{/film/saveGrade(id=${film.getId()})}" method="post">
@@ -157,6 +153,41 @@
 </div>
 <br><br><br>
 <div class="col-xs-12"><hr></div>
-
+<div class="card-columns" th:each="r:${reviews}">
+    <div class="card offset-4" style="width: 18rem;" >
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <a th:href="@{'/user/' + ${r.getAuthor().getId()}}">
+                <p class="card-text" th:text="${r.getAuthor().getUsername()}"></p>
+            </a>
+            <p class="card-text" th:text="${r.getDate()}"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><span th:text="${r.getTitle()}"></span></li>
+            <li class="list-group-item"><span th:text="${r.getText()}"></span></li>
+        </ul>
+    </div>
+    <br><br>
+</div>
+<div class="w-25 border border-primary offset-1">
+    <h5>Моя оценка</h5>
+    <form class="form-horizontal border" th:action="@{/film/saveReview(id=${film.getId()})}" method="post">
+        <select class="form-select" aria-label="Default select example" name="reviewType">
+            <option selected>Open this select menu</option>
+            <option value="Положительная">Положительная</option>
+            <option value="Нейтральная">Нейтральная</option>
+            <option value="Отрицательная">Отрицательная</option>
+        </select>
+        <br>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Заголовок" aria-label="Username" aria-describedby="basic-addon1" name="title">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">With textarea</span>
+            <textarea class="form-control" aria-label="With textarea" name="text"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Оставить рецензию</button>
+    </form>
+</div>
 </body>
 </html>

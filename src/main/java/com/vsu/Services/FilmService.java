@@ -1,18 +1,17 @@
 package com.vsu.Services;
 
-import com.vsu.Models.Grade;
-import com.vsu.Models.GradeId;
-import com.vsu.Models.User;
+import com.vsu.Models.*;
 import com.vsu.Repository.GradeRepository;
+import com.vsu.Repository.ReviewRepository;
 import com.vsu.dto.FilmConverter;
 import com.vsu.dto.FilmDTO;
-import com.vsu.Models.Film;
 import com.vsu.Repository.FilmRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -28,6 +27,7 @@ public class FilmService {
     private final FilmRepository filmRepository;
     private final GradeRepository gradeRepository;
     private final FilmConverter filmConverter;
+    private final ReviewRepository reviewRepository;
     public FilmDTO findById(Long id){
         Optional<Film> film = filmRepository.findById(id);
         try{
@@ -47,7 +47,7 @@ public class FilmService {
         return dtofilms;
     }
     public List<FilmDTO> findLastFilms(){
-        List<Film> films = filmRepository.findLastFilms().subList(0,4);
+        List<Film> films = filmRepository.findLastFilms();
         List<FilmDTO> filmDTOS = new ArrayList<>();
         for(Film film:films){
             filmDTOS.add(filmConverter.filmToFilmDto(film));
@@ -82,6 +82,35 @@ public class FilmService {
         gradeRepository.save(grade);
         film.setRating(gradeRepository.findAvgGradeByFilm(film.getId()));
         filmRepository.save(film);
+    }
+    public List<Review> findLastReviews(){
+        return reviewRepository.findLastReviews();
+    }
+    public void addReview(User user,Long id, String title, String text, String reviewType){
+        ReviewType reviewTypeE = null;
+        switch(reviewType){
+            case "Положительная":{
+                reviewTypeE = ReviewType.Positive;
+                break;
+            }
+            case "Отрицательная":{
+                reviewTypeE = ReviewType.Negative;
+                break;
+            }
+            case "Нейтральная":{
+                reviewTypeE = ReviewType.Neutral;
+                break;
+            }
+        }
+        Review review = Review.builder()
+                .film(filmRepository.findById(id).get())
+                .author(user)
+                .title(title)
+                .text(text)
+                .reviewType(reviewTypeE)
+                .date(LocalDate.now())
+                .build();
+        reviewRepository.save(review);
     }
 
 }

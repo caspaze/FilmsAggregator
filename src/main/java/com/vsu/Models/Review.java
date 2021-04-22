@@ -1,7 +1,6 @@
 package com.vsu.Models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +9,9 @@ import java.time.LocalDate;
 @Table(name = "reviews")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +19,7 @@ public class Review {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="film",referencedColumnName = "id")
     private Film film;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="author",referencedColumnName = "id")
     private User author;
     @Column

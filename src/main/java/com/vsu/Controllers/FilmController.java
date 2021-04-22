@@ -57,7 +57,7 @@ public class FilmController {
         model.addAttribute("genres",filmDTO.getGenres());
         model.addAttribute("staffs",filmDTO.getFilmStaffs());
         model.addAttribute("grades",filmDTO.getGrades());
-        model.addAttribute("reviews",filmDTO.getReviews());
+        model.addAttribute("reviews",filmService.findLastReviews());
         model.addAttribute("id",filmDTO.getId());
         model.addAttribute("userGrade",userGrade);
         model.addAttribute("user",user);
@@ -66,6 +66,11 @@ public class FilmController {
     @PostMapping("/saveGrade")
     public String saveGrade(@AuthenticationPrincipal User user,@RequestParam(required = true) Long id, Integer grade){
         filmService.addGrade(grade,id,user);
+        return "redirect:/film/" + id;
+    }
+    @PostMapping("/saveReview")
+    public String saveReview(@AuthenticationPrincipal User user,@RequestParam(required = true) Long id, String title,String text,String reviewType){
+        filmService.addReview(user, id, title, text, reviewType);
         return "redirect:/film/" + id;
     }
 
