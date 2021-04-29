@@ -112,7 +112,7 @@
                     <div class="panel-heading">
                         <header class="panel-title">
                             <div class="text-center">
-                                <strong>Пользователь сайта</strong>
+                                <strong th:text="${user.getUsername()}"></strong>
                             </div>
                         </header>
                     </div>
@@ -123,10 +123,9 @@
                             <small class="label label-warning">Страна</small>
                             <p>Фраза</p>
                             <p class="sosmed-author">
-                                <a href="#"><i class="fa fa-facebook" title="Facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter" title="Twitter"></i></a>
-                                <a href="#"><i class="fa fa-google-plus" title="Google Plus"></i></a>
-                                <a href="#"><i class="fa fa-linkedin" title="Linkedin"></i></a>
+                                <a th:href="@{${user.getTwitterLink()}}"><i class="fa fa-twitter" title="Twitter"></i></a>
+                                <a th:href="@{${user.getGoogleLink()}}"><i class="fa fa-google-plus" title="Google Plus"></i></a>
+                                <a th:href="@{${user.getVkLink()}}"><i class="fa fa-linkedin" title="Linkedin"></i></a>
                             </p>
                         </div>
                     </div>
@@ -143,11 +142,9 @@
                             <div class="tab-pane fade active in" id="detail">
                                 <table class="table table-th-block">
                                     <tbody>
-                                    <tr><td class="active">Зарегистрирован:</td><td>12-06-2016</td></tr>
-                                    <tr><td class="active">Страна:</td><td></td></tr>
-                                    <tr><td class="active">Город:</td><td></td></tr>
-                                    <tr><td class="active">Пол:</td><td></td></tr>
-                                    <tr><td class="active">Возраст:</td><td></td></tr>
+                                    <tr th:if="${user.getRegistrationDate()!=null}"><td class="active">Зарегистрирован:</td><td><span th:text="${user.getRegistrationDate()}"></span></td></tr>
+                                    <tr th:if="${user.getCountry()!=null}"><td class="active">Страна:</td><td><span th:text="${user.getCountry().getName()}"></span></td></tr>
+                                    <tr th:if="${user.getBirthdate()!=null}"><td class="active">Дата рождения:</td><td><span th:text="${user.getBirthdate()}"></span></td></tr>
                                     </tbody>
                                 </table>
                             </div>

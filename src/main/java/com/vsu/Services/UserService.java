@@ -4,8 +4,6 @@ import com.vsu.Models.User;
 import com.vsu.Repository.CountryRepository;
 import com.vsu.Repository.RoleRepository;
 import com.vsu.Repository.UserRepository;
-import com.vsu.dto.UserConverter;
-import com.vsu.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Optional;
 

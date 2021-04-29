@@ -1,5 +1,6 @@
 package com.vsu.Controllers;
 
+import com.vsu.Models.Staff;
 import com.vsu.Models.User;
 import com.vsu.Services.FilmService;
 import com.vsu.dto.FilmDTO;
@@ -12,7 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 @Controller
 @AllArgsConstructor
 public class HomeController {
@@ -36,6 +41,7 @@ public class HomeController {
                              @RequestParam(defaultValue = "5") int size,
                              Model model){
         Page<FilmDTO> filmPage = filmService.findFilms(name,PageRequest.of(page,size));
+        Set<Staff> directors = new TreeSet<>(Comparator.comparing(Staff::getName));
         model.addAttribute("page",filmPage);
         model.addAttribute("name",name);
         model.addAttribute("user",user);
