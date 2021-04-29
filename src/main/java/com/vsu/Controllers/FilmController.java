@@ -36,15 +36,15 @@ public class FilmController {
         Set<Staff> painters = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<Staff> editors = new TreeSet<>(Comparator.comparing(Staff::getName));
         Set<FilmStaff> staffSet = filmDTO.getFilmStaffs();
-        staffSet.stream().filter((x)->x.getRole().getName().equals("Режиссёр")).forEach((x)->directors.add(x.getStaff()));
-        staffSet.stream().filter((x)->x.getRole().getName().equals("Продюссер")).forEach((x)->producers.add(x.getStaff()));
-        staffSet.stream().filter((x)->x.getRole().getName().equals("Актёр")).forEach((x)->actors.add(x.getStaff()));
-        staffSet.stream().filter((x)->x.getRole().getName().equals("Сценарист")).forEach((x)->screenwriters.add(x.getStaff()));
-        staffSet.stream().filter((x)->x.getRole().getName().equals("Оператор")).forEach((x)->operators.add(x.getStaff()));
-        staffSet.stream().filter((x)->x.getRole().getName().equals("Композитор")).forEach((x)->composers.add(x.getStaff()));
-        staffSet.stream().filter((x)->x.getRole().getName().equals("Художник")).forEach((x)->painters.add(x.getStaff()));
-        staffSet.stream().filter((x)->x.getRole().getName().equals("Монтаж")).forEach((x)->painters.add(x.getStaff()));
-        model.addAttribute("img",filmDTO.getStringImg(700,200));
+        staffSet.stream().filter(x->x.getRole().getName().equals("Режиссёр")).forEach(x->directors.add(x.getStaff()));
+        staffSet.stream().filter(x->x.getRole().getName().equals("Продюссер")).forEach(x->producers.add(x.getStaff()));
+        staffSet.stream().filter(x->x.getRole().getName().equals("Актёр")).forEach(x->actors.add(x.getStaff()));
+        staffSet.stream().filter(x->x.getRole().getName().equals("Сценарист")).forEach(x->screenwriters.add(x.getStaff()));
+        staffSet.stream().filter(x->x.getRole().getName().equals("Оператор")).forEach(x->operators.add(x.getStaff()));
+        staffSet.stream().filter(x->x.getRole().getName().equals("Композитор")).forEach(x->composers.add(x.getStaff()));
+        staffSet.stream().filter(x->x.getRole().getName().equals("Художник")).forEach(x->painters.add(x.getStaff()));
+        staffSet.stream().filter(x->x.getRole().getName().equals("Монтаж")).forEach(x->editors.add(x.getStaff()));
+        model.addAttribute("img",filmDTO.getStringImg());
         model.addAttribute("film",filmDTO);
         model.addAttribute("directors",directors);
         model.addAttribute("producers",producers);
@@ -73,6 +73,4 @@ public class FilmController {
         filmService.addReview(user, id, title, text, reviewType);
         return "redirect:/film/" + id;
     }
-
-
 }

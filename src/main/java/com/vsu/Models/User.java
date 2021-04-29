@@ -56,6 +56,8 @@ public class User implements UserDetails {
     private String twitterLink;
     @Column(name = "google_link")
     private String googleLink;
+    @Column(name = "activation_code")
+    private String activationCode;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<Role> roleSet = new HashSet<>();

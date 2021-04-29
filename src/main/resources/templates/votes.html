@@ -74,7 +74,7 @@
                 <a th:href="@{'/film/' + ${f.getFilm().getId()}}"><span th:text="${f.getFilm().getName() + ' (' + f.getFilm().getDate().getYear()  + ')'}"></span></a>
                 <p th:text="${f.getFilm().getDuration()} + ' мин.'"></p>
             </td>
-            <td>Date</td>
+            <td><span th:text="${f.getDate()}"></td>
             <td><span th:text="${f.getGrade()}"></span></td>
         </tr>
         </tbody>

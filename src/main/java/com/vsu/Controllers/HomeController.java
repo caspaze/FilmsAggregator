@@ -1,5 +1,6 @@
 package com.vsu.Controllers;
 
+import com.vsu.Models.Staff;
 import com.vsu.Models.User;
 import com.vsu.Services.FilmService;
 import com.vsu.dto.FilmDTO;
@@ -12,7 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 @Controller
 @AllArgsConstructor
 public class HomeController {
@@ -21,10 +26,14 @@ public class HomeController {
     public String homePage(@AuthenticationPrincipal User user, Model model){
 
         List<FilmDTO> films = filmService.findLastFilms();
-        model.addAttribute("film1",films.get(0));
-        model.addAttribute("film2",films.get(1));
-        model.addAttribute("film3",films.get(2));
-        model.addAttribute("film4",films.get(3));
+        model.addAttribute("film0",films.get(0));
+        model.addAttribute("film1",films.get(1));
+        model.addAttribute("film2",films.get(2));
+        model.addAttribute("film3",films.get(3));
+        model.addAttribute("film4",films.get(4));
+        model.addAttribute("film5",films.get(5));
+        model.addAttribute("film6",films.get(6));
+        model.addAttribute("film7",films.get(7));
         model.addAttribute("films",films);
         model.addAttribute("user",user);
         return "index";
@@ -36,6 +45,7 @@ public class HomeController {
                              @RequestParam(defaultValue = "5") int size,
                              Model model){
         Page<FilmDTO> filmPage = filmService.findFilms(name,PageRequest.of(page,size));
+        Set<Staff> directors = new TreeSet<>(Comparator.comparing(Staff::getName));
         model.addAttribute("page",filmPage);
         model.addAttribute("name",name);
         model.addAttribute("user",user);

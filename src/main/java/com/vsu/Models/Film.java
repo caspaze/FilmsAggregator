@@ -24,7 +24,7 @@ public class Film implements Serializable {
     @Column
     private LocalDate date;
     @Column
-    private Byte[] image;
+    private byte[] image;
     @ManyToOne
     @JoinColumn(name = "type", referencedColumnName = "id")
     private Type type;

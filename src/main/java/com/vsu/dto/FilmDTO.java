@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.coobird.thumbnailator.Thumbnailator;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -26,7 +25,7 @@ public class FilmDTO {
     private Long id;
     private String name;
     private LocalDate date;
-    private Byte[] image;
+    private byte[] image;
     private Type type;
     private Country country;
     private Double rating;
@@ -36,23 +35,18 @@ public class FilmDTO {
     private Set<FilmStaff> filmStaffs;
     private List<Grade> grades;
     private List<Review> reviews;
-    public String getStringImg(int x, int y) throws IOException {
+
+    public void setDefaultImg() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(1000);
-        BufferedImage image = ImageIO.read(new File("src/main/resources/static/images/defaultImage.png"));
-        image = Thumbnailator.createThumbnail(image,x,y);
-        ImageIO.write(image, "png", baos);
+        BufferedImage bufferedImage = ImageIO.read(new File("src/main/resources/static/images/defaultImage.png"));
+        ImageIO.write(bufferedImage, "png", baos);
         baos.flush();
-        String img = Base64.getMimeEncoder().encodeToString(baos.toByteArray());
-        baos.close();
-        return img;
+        this.image=baos.toByteArray();
     }
     public String getStringImg() throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(1000);
-        BufferedImage image = ImageIO.read(new File("src/main/resources/static/images/defaultImage.png"));
-        ImageIO.write(image, "png", baos);
-        baos.flush();
-        String img = Base64.getMimeEncoder().encodeToString(baos.toByteArray());
-        baos.close();
-        return img;
+        if(image==null){
+            setDefaultImg();
+        }
+        return Base64.getMimeEncoder().encodeToString(image);
     }
 }

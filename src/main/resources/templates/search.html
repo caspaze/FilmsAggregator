@@ -44,8 +44,25 @@
         </div>
     </nav>
 </div>
-
-<div class="col-sm-8 offset-1 container">
+<div class="col-sm-8 offset-2 container" th:each="f:${page}">
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img th:src="'data:image/jpeg;base64,' + ${f.getStringImg()}" th:height="230" th:width="170" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <a th:href="@{'/film/' + ${f.getId()}}">
+                    <h5 class="card-title" th:text="${f.getName()}">Card title</h5>
+                </a>
+                <p class="card-text"><small class="text-muted" th:text="${f.getDate() + ', ' + f.getDuration()}"></small></p>
+                <p class="card-text" th:text="${f.getCountry().getName()}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--<div class="col-sm-8 offset-1 container">
     <div class="row" th:each="f:${page}">
         <div class="row justify-content-start">
             <img class="img-thumbnail" th:src="'data:image/jpeg;base64,' + ${f.getStringImg(200,200)}"  alt="...">
@@ -55,7 +72,7 @@
             <p th:text="${f.getDate().getYear()}">th:text="${f.getCountry().getName()}"></p>
         </div>
     </div>
-</div>
+</div>-->
 <ul class="offset-1 mt-5 nav nav-pills">
     <li class="nav-item" th:each="i:${#numbers.sequence(0,page.getTotalPages()-1)}">
         <a th:href="@{/search(page=${i},name=${name})}" th:text="${i+1}" class="nav-link" th:classappend="${page.getNumber()==i} ? 'active':''"></a>
