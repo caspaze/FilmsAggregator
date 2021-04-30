@@ -120,8 +120,7 @@
                         <div class="text-center" id="author">
                             <img src="http://www.fly-webmaster.ru/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" width="300" height="300" alt="...">
                             <h3 th:text="${user.getUsername()}"></h3>
-                            <small class="label label-warning">Страна</small>
-                            <p>Фраза</p>
+                            <small class="label label-warning" th:text="${user.getEmail()}"></small>
                             <p class="sosmed-author">
                                 <a th:href="@{${user.getTwitterLink()}}"><i class="fa fa-twitter" title="Twitter"></i></a>
                                 <a th:href="@{${user.getGoogleLink()}}"><i class="fa fa-google-plus" title="Google Plus"></i></a>

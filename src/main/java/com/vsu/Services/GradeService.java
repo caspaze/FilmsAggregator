@@ -4,15 +4,10 @@ import com.vsu.Models.Film;
 import com.vsu.Models.Grade;
 import com.vsu.Models.User;
 import com.vsu.Repository.GradeRepository;
-import com.vsu.dto.FilmDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @AllArgsConstructor

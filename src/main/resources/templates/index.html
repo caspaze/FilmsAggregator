@@ -27,44 +27,38 @@
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form class="dropdown-item" th:action="@{/logout}" method="post">
-                                    <input type="submit" value="Sign Out"/>
+                                    <input type="submit" value="Выход"/>
                                 </form>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <form class="d-flex" method="get" action="/search">
-                    <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input class="form-control me-2" type="search" name="name" placeholder="Поиск" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
                 </form>
             </div>
         </div>
     </nav>
 </div>
-<!--<div class="dropdown">
-                <button class="btn btn-primary btn-lg dropdown-toggle offset-11" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                    </svg>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li th:if="${user!=null}"><a class="dropdown-item" th:href="@{'/user/' + ${user.getId()}}"> Профиль</a></li>
-                    <li th:if="${user==null}"><a class="dropdown-item" th:href="@{'/login'}"> Войти в профиль</a></li>
-                    <li><a class="dropdown-item" href="#">Настройки</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <input class="dropdown-item" type="submit" value="Submit">
-                    </li>
-                    <li>
-                        <form class="dropdown-item" th:action="@{/logout}" method="post">
-                            <input type="submit" value="Sign Out"/>
-                        </form>
-                    </li>
+
+<br>
+<div class="row">
+    <div class="col-sm-2 offset-2">
+        <a th:href="@{'/film/' + ${film0.getId()}}" style="text-decoration: none" class="link-dark">
+            <div class="card mt-5" style="width: 18rem;">
+                <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film0.getStringImg()}" >
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${film0.getName()}"></h5>
+                    <p class="card-text"><span th:text="${film0.getDate().getYear()}"></span>, <span th:text="${film0.getCountry().getName()}"></span></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" >Оценка: <span th:text="${film0.getRating()}"></span></li>
                 </ul>
-            </div>-->
-<!--<div class="row">
-    <div class="col-sm-2 offset-1">
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-2 ">
         <a th:href="@{'/film/' + ${film1.getId()}}" style="text-decoration: none" class="link-dark">
         <div class="card mt-5" style="width: 18rem;">
             <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film1.getStringImg()}" >
@@ -78,65 +72,96 @@
         </div>
         </a>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2 ">
         <a th:href="@{'/film/' + ${film2.getId()}}" style="text-decoration: none" class="link-dark">
-        <div class="card mt-5" style="width: 18rem;">
-            <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film2.getStringImg()}" >
-            <div class="card-body">
-                <h5 class="card-title" th:text="${film2.getName()}"></h5>
-                <p class="card-text"><span th:text="${film2.getDate().getYear()}"></span>, <span th:text="${film2.getCountry().getName()}"></span></p>
+            <div class="card mt-5" style="width: 18rem;">
+                <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film2.getStringImg()}" >
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${film2.getName()}"></h5>
+                    <p class="card-text"><span th:text="${film2.getDate().getYear()}"></span>, <span th:text="${film2.getCountry().getName()}"></span></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" >Оценка: <span th:text="${film2.getRating()}"></span></li>
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" >Оценка: <span th:text="${film2.getRating()}"></span></li>
-            </ul>
-        </div>
-        </a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-2 offset-1">
-        <a th:href="@{'/film/' + ${film2.getId()}}" style="text-decoration: none" class="link-dark">
-        <div class="card mt-3" style="width: 18rem;">
-            <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film3.getStringImg()}" >
-            <div class="card-body">
-                <h5 class="card-title" th:text="${film3.getName()}"></h5>
-                <p class="card-text"><span th:text="${film3.getDate().getYear()}"></span>, <span th:text="${film3.getCountry().getName()}"></span></p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" >Оценка: <span th:text="${film3.getRating()}"></span></li>
-            </ul>
-        </div>
         </a>
     </div>
     <div class="col-sm-2">
         <a th:href="@{'/film/' + ${film3.getId()}}" style="text-decoration: none" class="link-dark">
-        <div class="card mt-3" style="width: 18rem;">
-            <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film4.getStringImg()}" >
-            <div class="card-body">
-                <h5 class="card-title" th:text="${film4.getName()}"></h5>
-                <p class="card-text"><span th:text="${film4.getDate().getYear()}"></span>, <span th:text="${film4.getCountry().getName()}"></span></p>
+            <div class="card mt-5" style="width: 18rem;">
+                <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film3.getStringImg()}" >
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${film3.getName()}"></h5>
+                    <p class="card-text"><span th:text="${film3.getDate().getYear()}"></span>, <span th:text="${film3.getCountry().getName()}"></span></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" >Оценка: <span th:text="${film3.getRating()}"></span></li>
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" >Оценка: <span th:text="${film4.getRating()}"></span></li>
-            </ul>
-        </div>
         </a>
     </div>
-</div>-->
+</div>
 
-<div class="card-columns" th:each="f:${films}">
-    <div class="col-sm-2 offset-1 card my-3" style="width: 18rem;" >
-        <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${f.getStringImg()}" >
-        <a th:href="@{'/film/' + ${f.getId()}}" style="text-decoration: none" class="link-dark">
-        <div class="card-body">
-            <h5 class="card-title" th:text="${f.getName()}"></h5>
-            <p class="card-text"><span th:text="${f.getDate().getYear()}"></span>, <span th:text="${f.getCountry().getName()}"></span></p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" >Оценка: <span th:text="${f.getRating()}"></span></li>
-        </ul>
+<div class="row">
+    <div class="col-sm-2 offset-2">
+        <a th:href="@{'/film/' + ${film4.getId()}}" style="text-decoration: none" class="link-dark">
+            <div class="card mt-5" style="width: 18rem;">
+                <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film4.getStringImg()}" >
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${film4.getName()}"></h5>
+                    <p class="card-text"><span th:text="${film4.getDate().getYear()}"></span>, <span th:text="${film4.getCountry().getName()}"></span></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" >Оценка: <span th:text="${film4.getRating()}"></span></li>
+                </ul>
+            </div>
         </a>
     </div>
+    <div class="col-sm-2 ">
+        <a th:href="@{'/film/' + ${film5.getId()}}" style="text-decoration: none" class="link-dark">
+            <div class="card mt-5" style="width: 18rem;">
+                <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film5.getStringImg()}" >
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${film5.getName()}"></h5>
+                    <p class="card-text"><span th:text="${film5.getDate().getYear()}"></span>, <span th:text="${film5.getCountry().getName()}"></span></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" >Оценка: <span th:text="${film1.getRating()}"></span></li>
+                </ul>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-2 ">
+        <a th:href="@{'/film/' + ${film6.getId()}}" style="text-decoration: none" class="link-dark">
+            <div class="card mt-5" style="width: 18rem;">
+                <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film6.getStringImg()}" >
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${film6.getName()}"></h5>
+                    <p class="card-text"><span th:text="${film6.getDate().getYear()}"></span>, <span th:text="${film6.getCountry().getName()}"></span></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" >Оценка: <span th:text="${film6.getRating()}"></span></li>
+                </ul>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <a th:href="@{'/film/' + ${film7.getId()}}" style="text-decoration: none" class="link-dark">
+            <div class="card mt-5" style="width: 18rem;">
+                <img class="card-img-top" alt="..." th:src="'data:image/jpeg;base64,' + ${film7.getStringImg()}" >
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${film7.getName()}"></h5>
+                    <p class="card-text"><span th:text="${film7.getDate().getYear()}"></span>, <span th:text="${film7.getCountry().getName()}"></span></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" >Оценка: <span th:text="${film7.getRating()}"></span></li>
+                </ul>
+            </div>
+        </a>
+    </div>
+
+</div>
+
 </div>
 </body>
 </html>

@@ -17,9 +17,6 @@ public interface GradeRepository extends JpaRepository<Grade, GradeId> {
     @Query(value = "select avg (g.grade) from grades g where g.film=?1",nativeQuery = true)
     Double findAvgGradeByFilm(Long filmId);
     Grade findByUserAndFilm(User user,Film film);
-    /*@Query("SELECT avg(g.grade) from Grade g where g.user= ?1")
-    Double findAvgUserGrade(User user);*/
-   /* @Query(value = "SELECT avg(g.grade) from Grade g where g.user=?1 and ",nativeQuery = true)
-    Double findCartoonAvgGrade(User user);*/
+
 
 }

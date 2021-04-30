@@ -10,9 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +22,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final CountryRepository countryRepository;
+    private final SmtpMailSender smtpMailSender;
 
 
     public boolean addUser(User user){
@@ -27,10 +30,19 @@ public class UserService implements UserDetailsService {
         if(userFromDB!=null){
             return false;
         }
-        user.setEnabled(true);
+        user.setEnabled(false);
         user.setRole(roleRepository.findRoleByName("user"));
         user.setRegistrationDate(LocalDate.now());
+        user.setActivationCode(UUID.randomUUID().toString());
         userRepository.save(user);
+        if(!StringUtils.isEmpty(user.getEmail())){
+            String message = String.format(
+                    "Здравствуйте, %s \n" + "Пожалуйста, чтобы активировать ваш аккаунт, перейдите по ссылке: " + "http://localhost:8090/activate/%s",
+                    user.getUsername(),
+                    user.getActivationCode()
+            );
+            smtpMailSender.send(user.getEmail(),"Activation code",message);
+        }
         return true;
     }
 
@@ -83,4 +95,14 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public boolean activateUser(String code) {
+        User user = userRepository.findByActivationCode(code);
+        if(user == null){
+            return false;
+        }
+        user.setActivationCode(null);
+        user.setEnabled(true);
+        userRepository.save(user);
+        return true;
+    }
 }
